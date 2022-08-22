@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="User Entered Import Resolution" name="http://data-marking.mitre.org/DataMarking#" uri="DataMarking.owl"/>
+    <uri id="User Entered Import Resolution" name="http://capec.mitre.org/capec_v1#" uri="Capec.owl"/>
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://capec.mitre.org/capec_v1" uri="Capec.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://cybox.mitre.org/Common" uri="CyboxCommon.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://cybox.mitre.org/cybox_v1" uri="Cybox.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://data-marking.mitre.org/DataMarking" uri="DataMarking.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://maec.mitre.org/XMLSchema/maec-core-2" uri="Maec.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://referentia.com/killchain/" uri="killchain.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://referentia.com/ont/network" uri="network.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://stix.mitre.org/STIX" uri="STIX.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://www.vistology.com/ont/2013/STO-L.owl" uri="STO-L.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://www.w3.org/2001/sw/BestPractices/OEP/SimplePartWhole/part.owl" uri="part.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1641016807949" name="http://www.w3.org/2002/07/owl" uri="iferred_api.owl"/>
+    </group>
+</catalog>
