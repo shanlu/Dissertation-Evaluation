@@ -1,0 +1,93 @@
+<BaseVISor
+  xmlns:concertoa="http://ece.neu.edu/ontologies/ConcertOlogy_ABox.owl#"
+  xmlns:concerto="http://ece.neu.edu/ontologies/ConcertOlogy.owl#"
+  xmlns:obr="http://ece.neu.edu.crf/OBROntology.owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+<!-- include the OWL 2 RL Axioms -->
+<include name="owl2rl"/>
+
+<include lang="owl2" path="Ontology/ConcertOlogy_ABox.owl" />
+<include lang="owl2" path="Ontology/ConcertOlogy.owl" />
+<include lang="owl2" path="Ontology/OBROntology.owl" />
+
+<rule name="Comp_FFT Rule">
+    <body>
+        <triple>
+            <subject variable="_Ind"/>
+            <predicate resource="rdf:type"/>
+            <object resource="concerto:FFT"/>
+        </triple>
+    </body>
+
+    <head>
+        <assert>
+            <Individual variable="_Ind" rdf:type="owl:NamedIndividual">
+                <obr:tagParamName datatype="xsd:string">tag</obr:tagParamName>
+                <obr:hasFormalParameters resource="concertoa:fft.params">
+                    <rdf:type resource="obr:MethodParameterArray" />
+                    <rdf:type resource="owl:NamedIndividual" />
+                    <obr:isSequenceOf resource="concertoa:fft.params.0">
+                        <rdf:type resource="obr:MethodParameterArrayElement" />
+                        <rdf:type resource="owl:NamedIndividual" />
+                        <obr:hasIndex datatype="xsd:integer">0</obr:hasIndex>
+                            <obr:hasParameter resource="concertoa:fft.params.0.param">
+                                <rdf:type resource="obr:StringParameter" />
+                                <rdf:type resource="owl:NamedIndividual" />
+                                <obr:hasName datatype="xsd:string">tag</obr:hasName>
+                            </obr:hasParameter>
+                    </obr:isSequenceOf>
+                    <obr:isSequenceOf resource="concertoa:fft.params.1">
+                        <rdf:type resource="obr:MethodParameterArrayElement" />
+                        <rdf:type resource="owl:NamedIndividual" />
+                        <obr:hasIndex datatype="xsd:integer">1</obr:hasIndex>
+                            <obr:hasParameter resource="concertoa:fft.params.1.param">
+                                <rdf:type resource="obr:IntegerParameter" />
+                                <rdf:type resource="owl:NamedIndividual" />
+                                <obr:hasName datatype="xsd:string">fft_length</obr:hasName>
+                            </obr:hasParameter>
+                    </obr:isSequenceOf>
+                </obr:hasFormalParameters>
+                <obr:hasExtClock resource="concertoa:fft.Clk.clk">
+                    <rdf:type resource="obr:ExternalClock"/>
+                    <rdf:type resource="owl:NamedIndividual"/>
+                    <obr:hasName datatype="xsd:string">clk</obr:hasName>
+                </obr:hasExtClock>
+                <obr:hasInputPort resource="concertoa:fft.in.fft_in_re">
+                    <rdf:type resource="obr:FloatArrayInputPort"/>
+                    <rdf:type resource="owl:NamedIndividual"/>
+                    <obr:hasName datatype="xsd:string">fft_in_re</obr:hasName>
+                </obr:hasInputPort>
+                <obr:hasInputPort resource="concertoa:fft.in.fft_in_im">
+                    <rdf:type resource="obr:FloatArrayInputPort"/>
+                    <rdf:type resource="owl:NamedIndividual"/>
+                    <obr:hasName datatype="xsd:string">fft_in_im</obr:hasName>
+                </obr:hasInputPort>
+                <obr:hasInputPort resource="concertoa:fft.in.fft_direction">
+                    <rdf:type resource="obr:BooleanSingleInputPort"/>
+                    <rdf:type resource="owl:NamedIndividual"/>
+                    <obr:hasName datatype="xsd:string">fft_direction</obr:hasName>
+                </obr:hasInputPort>
+                <obr:hasOutputPort resource="concertoa:fft.out.fft_out_re">
+                    <rdf:type resource="obr:FloatArrayOutputPort"/>
+                    <rdf:type resource="owl:NamedIndividual"/>
+                    <obr:hasName datatype="xsd:string">fft_out_re</obr:hasName>
+                </obr:hasOutputPort>
+                <obr:hasOutputPort resource="concertoa:fft.out.fft_out_im">
+                    <rdf:type resource="obr:FloatArrayOutputPort"/>
+                    <rdf:type resource="owl:NamedIndividual"/>
+                    <obr:hasName datatype="xsd:string">fft_out_im</obr:hasName>
+                </obr:hasOutputPort>
+                <obr:hasOutputPort resource="concertoa:fft.out.fft_ovflo">
+                    <rdf:type resource="obr:BooleanSingleOutputPort"/>
+                    <rdf:type resource="owl:NamedIndividual"/>
+                    <obr:hasName datatype="xsd:string">fft_ovflo</obr:hasName>
+                </obr:hasOutputPort>
+            </Individual>
+        </assert>
+  </head>
+</rule>
+</BaseVISor>

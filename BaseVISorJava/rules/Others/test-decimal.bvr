@@ -1,0 +1,54 @@
+<BaseVISor xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+	<!-- include the OWL 2 RL Axioms -->
+	<include name="owl2rl" />
+	
+	<triple>
+		<subject resource="#bread" />
+		<predicate resource="#weighs" />
+		<object datatype="xsd:decimal">12.5</object>
+	</triple>
+	
+	<rule name="test">
+		<body>
+			<triple>
+				<subject variable="Item" />
+				<predicate resource="#weighs" />
+				<object variable="Weight" />
+			</triple>
+			
+			<bind variable="Sum">
+				<add>
+					<Weight />
+					<param datatype="xsd:decimal">87.5</param>
+				</add>
+			</bind>
+			
+			<bind variable="Multi">
+				<multiply>
+					<Weight />
+					<param datatype="xsd:int">2</param>
+				</multiply>
+			</bind>
+			
+			<bind variable="Power">
+				<multiply>
+					<Weight />
+				    <dpower>         
+                        <param datatype="xsd:decimal">2</param>
+		                <param datatype="xsd:decimal">-1</param>
+                    </dpower>
+				</multiply>
+			</bind>
+		</body>
+		<head>
+			<println>Item <Item/> weighs <Weight/> </println>
+			<println><Weight/> + 87.5 = <Sum/> </println>
+			<println><Weight/> * 2 = <Multi/> </println>
+			<println><Weight/> / 2 = <Power/> </println>
+		</head>
+	</rule>
+	
+</BaseVISor>

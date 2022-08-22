@@ -1,0 +1,343 @@
+<BaseVISor
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	 xmlns:policyusecase="http://www.semanticweb.org/yanji/ontologies/2016/0/PolicyUseCase.owl#"
+	 xmlns:scm="http://www.semanticweb.org/yanji/ontologies/2016/0/SCM.owl#"
+     xmlns:scmml="http://www.vistology.com/ont/2014/skf/SCMML.owl#"
+	 xmlns:cro="http://cogradio.org/ont/CRO2.owl#"
+	 xmlns:nuvio="http://cogradio.org/ont/Nuvio.owl#">
+	 
+
+<!-- include the OWL 2 RL Axioms -->
+<include name="owl2rl"/>
+
+<!-- include PolicyUseCase ontology -->
+<include lang="owl2" path="F://Research/ResearchPaper/Proposal/SpringerJournal/Experiment/PolicyUseCase/PolicyUseCaseOWL/PolicyUseCase.owl"/>
+<include lang="owl2" path="F://Research/ResearchPaper/Proposal/SpringerJournal/Experiment/PolicyUseCase/SCM20160530.owl"/>
+<include lang="owl2" path="F://Research/ResearchWork/OWL/MyOWL/ExtendedCRO/OWLRelated/SCMML/SCMML(Jakub20141117).owl"/>
+<include lang="owl2" path="F://Research/ResearchWork/OWL/CRO/CROv2ByJakub/CRO2.owl"/>
+<include lang="owl2" path="F://Research/ResearchWork/OWL/CRO/CROv2ByJakub/Nuvio.owl"/>
+
+<rule name=" Detect whether a cuboid contains a point where a transmitter is located" salience = "0">
+  <body>
+    <!--
+	Get Altitude/Latitude/Altitude value for NEPoint/SWPoint and Height for Cuboid
+	-->
+    <Individual variable="ACuboid" rdf:type="scm:Cuboid">
+	  <scmml:hasBase variable="BaseForACuboid">
+	    <scm:hasSouthwestVertex variable="SWPoint">
+		  <scmml:hasAltitude variable="AltitudeForSWPoint">
+		    <scmml:hasValue variable="AltitudeValueForSWPoint"/>
+		  </scmml:hasAltitude>
+		  <scmml:hasLongitude variable="LongitudeForSWPoint">
+		    <scmml:hasValue variable="LongitudeValueForSWPoint"/>
+		  </scmml:hasLongitude>
+		  <scmml:hasLatitude variable="LatitudeForSWPoint">
+		    <scmml:hasValue variable="LatitudeValueForSWPoint"/>
+		  </scmml:hasLatitude>
+		</scm:hasSouthwestVertex>
+	    <scm:hasNortheastVertex variable="NEPoint">
+		  <scmml:hasAltitude variable="AltitudeForNEPoint">
+		    <scmml:hasValue variable="AltitudeValueForNEPoint"/>
+		  </scmml:hasAltitude>
+		  <scmml:hasLongitude variable="LongitudeForNEPoint">
+		    <scmml:hasValue variable="LongitudeValueForNEPoint"/>
+		  </scmml:hasLongitude>
+		  <scmml:hasLatitude variable="LatitudeForNEPoint">
+		    <scmml:hasValue variable="LatitudeValueForNEPoint"/>
+          </scmml:hasLatitude>	
+        </scm:hasNortheastVertex>
+      </scmml:hasBase>  
+	  <scmml:hasHeight variable="HeightForACuboid">
+	    <scmml:hasValue variable="HeightValueForACuboid"/>
+      </scmml:hasHeight>		
+	</Individual>
+	
+	<!--
+	Get Altitude/Latitude/Longitude Value for Point where Transmitter is located
+	-->
+    <Individual variable="ATransmitter" rdf:type="cro:Transmitter">
+	  <scmml:hasModel variable="Constructs">
+	    <scmml:hasLocation variable="Location">
+		  <scmml:hasPoint variable="Point">
+		    <scmml:hasAltitude variable="AltitudeForPoint">
+			  <scmml:hasValue variable="AltitudeValueForPoint"/>
+			</scmml:hasAltitude>
+		    <scmml:hasLatitude variable="LatitudeForPoint">
+			  <scmml:hasValue variable="LatitudeValueForPoint"/>
+			</scmml:hasLatitude>
+		    <scmml:hasLongitude variable="LongitudeForPoint">
+			  <scmml:hasValue variable="LongitudeValueForPoint"/>
+            </scmml:hasLongitude>
+          </scmml:hasPoint>	
+        </scmml:hasLocation>
+      </scmml:hasModel>		
+	</Individual>
+	
+	<!--
+	Judge whether a point is within the space of a cuboid by comparing 
+	corresponding latitude/latitude/height values
+	-->
+    <geq>
+	  <param variable="LongitudeValueForPoint"/>
+	  <param variable="LongitudeValueForSWPoint"/>
+	</geq>
+	
+	<leq>
+	  <param variable="LongitudeValueForPoint"/>
+	  <param variable="LongitudeValueForNEPoint"/>
+	</leq>	
+
+    <geq>
+	  <param variable="LatitudeValueForPoint"/>
+	  <param variable="LatitudeValueForSWPoint"/>
+	</geq>	
+	<leq>
+	  <param variable="LatitudeValueForPoint"/>
+	  <param variable="LatitudeValueForNEPoint"/>
+	</leq>
+
+    <geq>
+	  <param variable="AltitudeValueForPoint"/>
+	  <param variable="AltitudeValueForNEPoint"/>
+	</geq>	
+	
+	<leq>
+	  <param variable="AltitudeValueForPoint"/>
+	  <add>
+	    <param variable="HeightValueForACuboid"/> 
+		<param variable="AltitudeValueForNEPoint"/> 	
+	  </add>
+	</leq>
+  </body>
+  <head>
+    <!--
+	If a point is within a cuboid, then we assert that the transmitter is located within the space of the cuboid
+	-->
+    <assert>
+	  <triple>
+	    <subject variable="Location"/>
+        <predicate resource="scm:hasCuboid"/>
+        <object variable="ACuboid"/>
+	  </triple>
+   </assert>
+   <!--println><substringAfter><param variable="ATransmitter"/><param>:</param></substringAfter> has cuboid <substringAfter><param variable="ACuboid"/><param>:</param></substringAfter></println-->
+  </head>
+</rule>
+
+<rule name="Detect whether a cylinder contains a point where a transmitter is located" salience = "-1">
+  <body>
+    <!--
+	Get Altitude/Latitude/Altitude value for CircleCenter, Radius for Circle(base) and Height for Cylinder
+	-->
+    <Individual variable="ACylinder" rdf:type="scmml:Cylinder">
+	  <scmml:hasBase variable="BaseForACylinder">
+	    <scmml:hasCenter variable="CircleCenter">
+		  <scmml:hasAltitude variable="AltitudeForCircleCenter">
+		    <scmml:hasValue variable="AltitudeValueForCircleCenter"/>
+		  </scmml:hasAltitude>
+		  <scmml:hasLongitude variable="LongitudeForCircleCenter">
+		    <scmml:hasValue variable="LongitudeValueForCircleCenter"/>
+		  </scmml:hasLongitude>
+		  <scmml:hasLatitude variable="LatitudeForCircleCenter">
+		    <scmml:hasValue variable="LatitudeValueForCircleCenter"/>
+		  </scmml:hasLatitude>
+		</scmml:hasCenter>
+		<scmml:hasRadius variable="RadiusForABase">
+		  <scmml:hasValue variable="RadiusValueForABase"/>
+		</scmml:hasRadius>
+      </scmml:hasBase>
+	  
+	  <scmml:hasHeight variable="HeightForACylinder">
+	    <scmml:hasValue variable="HeightValueForACylinder"/>
+      </scmml:hasHeight>		
+	</Individual>
+	
+	<!--
+	Get Altitude/Latitude/Longitude Value for Point where Transmitter is located
+	-->
+    <Individual variable="ATransmitter" rdf:type="cro:Transmitter">
+	  <scmml:hasModel variable="Constructs">
+	    <scmml:hasLocation variable="Location">
+		  <scmml:hasPoint variable="Point">
+		    <scmml:hasAltitude variable="AltitudeForPoint">
+			  <scmml:hasValue variable="AltitudeValueForPoint"/>
+			</scmml:hasAltitude>
+		    <scmml:hasLatitude variable="LatitudeForPoint">
+			  <scmml:hasValue variable="LatitudeValueForPoint"/>
+			</scmml:hasLatitude>
+		    <scmml:hasLongitude variable="LongitudeForPoint">
+			  <scmml:hasValue variable="LongitudeValueForPoint"/>
+            </scmml:hasLongitude>
+          </scmml:hasPoint>	
+        </scmml:hasLocation>
+      </scmml:hasModel>		
+	</Individual>
+	
+	<!--
+	Judge whether a point is within the space of a cylinder by comparing 
+	corresponding latitude/latitude/height values
+	-->
+	<leq>
+	  <param variable="AltitudeValueForPoint"/>
+	  <add>
+	    <param variable="HeightValueForACylinder"/> 
+		<param variable="AltitudeValueForCircleCenter"/> 	
+	  </add>
+	</leq>
+	
+    <geq>
+	  <param variable="AltitudeValueForPoint"/>
+	  <param variable="AltitudeValueForCircleCenter"/>
+	</geq>	
+	
+	<!--
+	Here we judge whether the horizontal distance between a point and CircleCenter is less than
+	radius. The distance between A and B with longitude value LonA, LonB and latitude value LatA, LatB
+	is calculated by the following formula:	
+    Distance = R*arccos(cos(LatA)*cos(LatB)*cos(LonA-LonB) + sin(LatA)*sin(LatB))
+	The unit of latitude/longitude value is radius, the unit of distance is meter. R is a constant which
+	states the radius of the earth with unit meter.
+	-->
+    <leq>
+      <cos>
+	    <multiply>
+		  <param variable="RadiusValueForABase"/>
+		  <dpower>
+		    <!--6371004 is average radius of earth(unit:meter)-->
+            <param datatype="xsd:double">6371004</param>
+		    <param datatype="xsd:double">-1</param>
+          </dpower>
+		</multiply>	    
+	  </cos>
+      <add>
+	    <multiply>
+	      <cos>
+	        <multiply>
+	          <param variable="LatitudeValueForCircleCenter"/>
+		      <!--0.017455(pi/180) is radio that convert from degree to radius.-->
+		      <param datatype="xsd:decimal">0.017455</param>
+		    </multiply>
+	      </cos>
+	      <cos>
+	        <multiply>
+	          <param variable="LatitudeValueForPoint"/>
+		      <!--0.017455(pi/180) is radio that convert from degree to radius.-->
+		      <param datatype="xsd:decimal">0.017455</param>
+		    </multiply>
+	      </cos>
+	      <cos>
+	        <multiply>
+		      <subtract>
+		        <param variable="LongitudeValueForCircleCenter"/>
+		        <param variable="LongitudeValueForPoint"/>
+		      </subtract>
+		      <!--0.017455(pi/180) is radio that convert from degree to radius.-->
+		      <param datatype="xsd:decimal">0.017455</param>
+		    </multiply>
+	      </cos>
+	    </multiply>
+	    <multiply>
+	      <sin>
+	        <multiply>
+	          <param variable="LatitudeValueForCircleCenter"/>
+		      <!--0.01755(pi/180) is radio that convert from degree to radius.-->
+		      <param datatype="xsd:decimal">0.017455</param>
+	        </multiply>
+	      </sin>
+	      <sin>
+	        <multiply>
+			  <param variable="LatitudeValueForPoint"/>
+		      <!--0.01755(pi/180) is radio that convert from degree to radius.-->
+		      <param datatype="xsd:decimal">0.017455</param>
+	        </multiply>
+	      </sin>
+	    </multiply>
+      </add>
+    </leq>	  
+  </body>
+
+  <head>
+    <!--
+	If a point is within a cylinder, then we assert that the transmitter is located within the space of the cylinder
+	-->
+    <assert>
+	  <triple>
+	    <subject variable="Location"/>
+        <predicate resource="scmml:hasCylinder"/>
+        <object variable="ACylinder"/>
+	  </triple>
+   </assert>
+   <!--println><substringAfter><param variable="ATransmitter"/><param>:</param></substringAfter> has cylinder <substringAfter><param variable="ACylinder"/><param>:</param></substringAfter></println-->
+  </head>
+</rule>
+
+<rule name="Judge which transmitters can transmit in their current locations" salience = "-2">
+  <body>
+  
+    <Individual variable="APolicy" rdf:type="scm:Policy">
+      <scm:allowsToUseSpectrum variable="AllowedToUseSpectrumValue"/>
+	  <scm:appliesToRegion variable="Shape"/>
+      <scm:appliesToSpectrumRange variable="AppliedFrequencyBand">
+	    <cro:hasStartFrequency variable="StartFrequencyForASpectrum">
+		  <scmml:hasValue variable="StartFrequencyValueForASpectrum"/>
+		</cro:hasStartFrequency>
+		<cro:hasEndFrequency variable="EndFrequencyForASpectrum">
+		  <scmml:hasValue variable="EndFrequencyValueForASpectrum"/>
+		</cro:hasEndFrequency>
+	  </scm:appliesToSpectrumRange>
+	  <scm:appliesToStakeholder_Name variable="AppliedStakeholderName"/>
+    </Individual>
+	
+    <Individual variable="ATransmitter" rdf:type="cro:Transmitter">
+	  <scmml:hasBand variable="RequestedFrequencyBandForATransmitter">
+	    <cro:hasStartFrequency variable="StartFrequencyForATransmitter">
+		  <scmml:hasValue variable="StartFrequencyValueForATransmitter"/>
+		</cro:hasStartFrequency>
+	    <cro:hasEndFrequency variable="EndFrequencyForATransmitter">
+		  <scmml:hasValue variable="EndFrequencyValueForATransmitter"/>
+		</cro:hasEndFrequency>
+      </scmml:hasBand>
+	  <scm:appliesToStakeholder_Name variable="StakeholderNameForATransmitter"/> 
+	  <scmml:hasModel variable="Constructs">
+	    <scmml:hasLocation variable="Location">
+		  <nuvio:aggregateOf variable="Shape"/>
+		</scmml:hasLocation>
+      </scmml:hasModel>		
+	</Individual>
+	
+    <eq>
+	  <param variable="StakeholderNameForATransmitter"/>
+	  <param variable="AppliedStakeholderName"/>  
+	</eq>
+
+    <geq>
+	  <param variable="StartFrequencyValueForATransmitter"/>
+	  <param variable="StartFrequencyValueForASpectrum"/>
+	</geq>	
+
+    <leq>
+	  <param variable="EndFrequencyValueForATransmitter"/>
+	  <param variable="EndFrequencyValueForASpectrum"/>
+	</leq>	
+	
+	<eq>
+	  <param variable="AllowedToUseSpectrumValue"/>
+	  <param datatype="xsd:boolean">true</param>
+	</eq>	
+  </body>
+  
+  <head>
+    <!--If all the conditions in the body satisfy, then we assert that the transmitter can transmit in the region specified by the policy-->
+	<!--println><substringAfter><param variable="APolicy"/><param>:</param></substringAfter> applies to transmitter <substringAfter><param variable="ATransmitter"/><param>:</param></substringAfter></println-->
+    <println><substringAfter><param variable="ATransmitter"/><param>:</param></substringAfter> can transmit in <substringAfter><param variable="Shape"/><param>:</param></substringAfter></println>
+	
+  </head>
+</rule>
+</BaseVISor>

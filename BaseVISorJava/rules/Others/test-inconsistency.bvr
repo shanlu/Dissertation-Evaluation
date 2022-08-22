@@ -1,0 +1,30 @@
+<BaseVISor 
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#" 
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dvr="http://www.vistology.com/ont/DeVISor/DeVISor.owl#"
+    xmlns:kb="http://www.vistology.com/ont/devisor/kb#">
+	<!-- include the OWL 2 RL Axioms -->
+	<include name="owl2rl" />
+
+<!-- include DeVISor ontology -->
+<include lang="owl2" path="C://Users/ECE/Dropbox/Research/ResearchWork/OWL/CRO/PhaseIIByJakub/DeVISorInstallationJSON-RPC1.1/devisor/onts/ABox.owl"/>
+<include lang="owl2" path="C://Users/ECE/Dropbox/Research/ResearchWork/OWL/CRO/PhaseIIByJakub/DeVISorInstallationJSON-RPC1.1/devisor/onts/USRP.owl"/>
+<include lang="owl2" path="C://Users/ECE/Dropbox/Research/ResearchWork/OWL/CRO/PhaseIIByJakub/DeVISorInstallationJSON-RPC1.1/devisor/onts/DeVISor.owl"/>
+<include lang="owl2" path="C://Users/ECE/Dropbox/Research/ResearchWork/OWL/CRO/PhaseIIByJakub/DeVISorInstallationJSON-RPC1.1/devisor/onts/Nuvio.owl"/>
+<include lang="owl2" path="C://Users/ECE/Dropbox/Research/ResearchWork/OWL/CRO/PhaseIIByJakub/DeVISorInstallationJSON-RPC1.1/devisor/onts/GeoSpatial.owl"/>	
+	<triple>
+		<subject resource="kb:matching0" />
+		<predicate resource="dvr:hasCapability" />
+		<object resource="dvr:Bit" />
+	</triple>
+	
+    <query name="Query">
+        <triple>
+            <subject variable="v"/>
+            <predicate resource="dvr:hasCapability"/>
+            <object variable="dvr:Bit"/>
+        </triple>
+    </query>	
+</BaseVISor>
