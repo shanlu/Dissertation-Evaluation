@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
-public class QueryGen2 {
+public class QueryGen {
 	
 	static final String inputFileName  = "/Users/shanlu/Documents/Data/Parser/16/STIX.owl";
 	static final String inputFolderName  = "/Users/shanlu/Documents/Data/Parser/16";
