@@ -28,10 +28,10 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
-public class QueryGen {
+public class QueryGen2 {
 	
-	static final String inputFileName  = "/Users/shanlu/Documents/Data/NewSTIX/STIX.owl";
-	static final String inputFolderName  = "/Users/shanlu/Documents/Data/NewSTIX";
+	static final String inputFileName  = "/Users/shanlu/Documents/Data/Parser/16/STIX.owl";
+	static final String inputFolderName  = "/Users/shanlu/Documents/Data/Parser/16";
 	static final String base  = "http://stix.mitre.org/STIX";
 	static final String base_stol  = "http://www.vistology.com/ont/2013/STO-L.owl";
 
@@ -43,65 +43,37 @@ public class QueryGen {
 			"PREFIX stix: <http://stix.mitre.org/STIX#>\n" +
 			"PREFIX stol: <http://www.vistology.com/ont/2013/STO-L.owl#>\n";
 	    
-//	    if (relation==null) {
-//	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "1.txt"));
-//		    writer1.write(fileContent);
-//	    	String select1 = "INSERT {\n" +
-//	    					"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
-//	    					"stix:s rdf:type stix:Sq.\n" + 
-//	    					"stix:s stol:relevantRelation ?relation.\n" + 
-//	    					"stix:s stol:relevantIndiviudal ?object1.\n" + 
-//	    					"stix:s stol:relevantIndiviudal ?object2.}\n" + 
-//	    					"WHERE {\n" +
-//	    					"?relation rdf:type stol:Relation.\n" + 
-//	    					"?relation stol:anchor1 ?object1.\n" + 
-//	    					"?relation stol:anchor2 ?object2.\n" +
-//	    					"?object1 rdf:type " + domain + ".\n" + 
-//	    					"?object2 rdf:type " + range + ".}\n";
-//	    	writer1.write(select1);
-//	    	writer1.close();
-//	    }
-//	    else {
-//	    	BufferedWriter writer2 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "2.txt"));
-//		    writer2.write(fileContent);
-//	    	String select2 = "INSERT {\n" +
-//							"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
-//							"stix:s rdf:type stix:Sq.\n" + 
-//							"stix:s stol:relevantRelation "+ relation +".\n" + 
-//							"stix:s stol:relevantIndiviudal ?object1.\n" + 
-//							"stix:s stol:relevantIndiviudal ?object2.}\n" + 
-//							"WHERE { \n" + 
-//							relation + " rdf:type stol:Relation.\n" + 
-//							relation + " stol:anchor1 ?object1.\n" + 
-//							relation + " stol:anchor2 ?object2.\n" +
-//							"?object1 rdf:type " + domain + ".\n" + 
-//							"?object2 rdf:type " + range + ".}\n";
-//	    	writer2.write(select2);
-//	    	writer2.close();
-//	    }
-		if (relation==null) {
-	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/SelectQ-old/"+ n + "1.txt"));
+	    if (relation==null) {
+	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "1.txt"));
 		    writer1.write(fileContent);
-	    	String select1 = "SELECT ?object1 ?relation ?object2 \n" +
+	    	String select1 = "INSERT {\n" +
+	    					"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
+	    					"stix:s rdf:type stix:Sq.\n" + 
+	    					"stix:s stol:relevantRelation ?relation.\n" + 
+	    					"stix:s stol:relevantIndiviudal ?object1.\n" + 
+	    					"stix:s stol:relevantIndiviudal ?object2.}\n" + 
 	    					"WHERE {\n" +
 	    					"?relation rdf:type stol:Relation.\n" + 
-//	    					"?relation stol:anchor1 ?object1.\n" + 
-//	    					"?relation stol:anchor2 ?object2.\n" +
-							"?object1 " + relation + " ?object2.\n" +
+	    					"?relation stol:anchor1 ?object1.\n" + 
+	    					"?relation stol:anchor2 ?object2.\n" +
 	    					"?object1 rdf:type " + domain + ".\n" + 
 	    					"?object2 rdf:type " + range + ".}\n";
 	    	writer1.write(select1);
 	    	writer1.close();
 	    }
 	    else {
-	    	BufferedWriter writer2 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/SelectQ-old/"+ n + "2.txt"));
+	    	BufferedWriter writer2 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "2.txt"));
 		    writer2.write(fileContent);
-	    	String select2 = "SELECT ?object1 ?object2 \n" +
+	    	String select2 = "INSERT {\n" +
+							"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
+							"stix:s rdf:type stix:Sq.\n" + 
+							"stix:s stol:relevantRelation "+ relation +".\n" + 
+							"stix:s stol:relevantIndiviudal ?object1.\n" + 
+							"stix:s stol:relevantIndiviudal ?object2.}\n" + 
 							"WHERE { \n" + 
 							relation + " rdf:type stol:Relation.\n" + 
-//							relation + " stol:anchor1 ?object1.\n" + 
-//							relation + " stol:anchor2 ?object2.\n" +
-							"?object1 " + relation + " ?object2.\n" +
+							relation + " stol:anchor1 ?object1.\n" + 
+							relation + " stol:anchor2 ?object2.\n" +
 							"?object1 rdf:type " + domain + ".\n" + 
 							"?object2 rdf:type " + range + ".}\n";
 	    	writer2.write(select2);
@@ -121,15 +93,15 @@ public class QueryGen {
 		File folder = new File(inputFolderName);
 		AutoIRIMapper mapper=new AutoIRIMapper(folder, true);
 		manager.addIRIMapper(mapper);
-		SimpleIRIMapper iriMapper1 =  new SimpleIRIMapper(IRI.create("http://data-marking.mitre.org/DataMarking#"), IRI.create(new File("/Users/shanlu/Documents/Data/NewSTIX/DataMarking.owl")));
+		SimpleIRIMapper iriMapper1 =  new SimpleIRIMapper(IRI.create("http://data-marking.mitre.org/DataMarking#"), IRI.create(new File("/Users/shanlu/Documents/Data/Parser/16/DataMarking.owl")));
 		manager.addIRIMapper(iriMapper1);
-		SimpleIRIMapper iriMapper2 =  new SimpleIRIMapper(IRI.create("http://cybox.mitre.org/Common#"), IRI.create(new File("/Users/shanlu/Documents/Data/NewSTIX/CyboxCommon.owl")));
+		SimpleIRIMapper iriMapper2 =  new SimpleIRIMapper(IRI.create("http://cybox.mitre.org/Common#"), IRI.create(new File("/Users/shanlu/Documents/Data/Parser/16/CyboxCommon.owl")));
 		manager.addIRIMapper(iriMapper2);
-		SimpleIRIMapper iriMapper3 =  new SimpleIRIMapper(IRI.create("http://cybox.mitre.org/cybox_v1#"), IRI.create(new File("/Users/shanlu/Documents/Data/NewSTIX/Cybox.owl")));
+		SimpleIRIMapper iriMapper3 =  new SimpleIRIMapper(IRI.create("http://cybox.mitre.org/cybox_v1#"), IRI.create(new File("/Users/shanlu/Documents/Data/Parser/16/Cybox.owl")));
 		manager.addIRIMapper(iriMapper3);
-		SimpleIRIMapper iriMapper4 =  new SimpleIRIMapper(IRI.create("http://maec.mitre.org/XMLSchema/maec-core-2#"), IRI.create(new File("/Users/shanlu/Documents/Data/NewSTIX/Maec.owl")));
+		SimpleIRIMapper iriMapper4 =  new SimpleIRIMapper(IRI.create("http://maec.mitre.org/XMLSchema/maec-core-2#"), IRI.create(new File("/Users/shanlu/Documents/Data/Parser/16/Maec.owl")));
 		manager.addIRIMapper(iriMapper4);
-		SimpleIRIMapper iriMapper5 =  new SimpleIRIMapper(IRI.create("http://capec.mitre.org/capec_v1#"), IRI.create(new File("/Users/shanlu/Documents/Data/NewSTIX/Capec.owl")));
+		SimpleIRIMapper iriMapper5 =  new SimpleIRIMapper(IRI.create("http://capec.mitre.org/capec_v1#"), IRI.create(new File("/Users/shanlu/Documents/Data/Parser/16/Capec.owl")));
 		manager.addIRIMapper(iriMapper5);
 		
 		
@@ -146,7 +118,6 @@ public class QueryGen {
 			NodeSet<OWLNamedIndividual> individualsNodeSet = reasoner.getInstances(Relation, false);
 	        Set<OWLNamedIndividual> individuals = individualsNodeSet.getFlattened();
 	        
-//	      
 	        for (OWLNamedIndividual in : individuals) {
 	        	
 	        	ArrayList<String> domainList = new ArrayList<String>();
@@ -157,8 +128,6 @@ public class QueryGen {
 	        	
 	        	if (!re.contains("message") && !re.contains("classification")) {
 	        	OWLObjectProperty pro = dataFactory.getOWLObjectProperty(IRI.create(re.substring(re.indexOf("<")+1, re.indexOf(">"))));
-	        	System.out.println("-----------relation--------------");
-	        	//System.out.println(pro.toString());
 	        	proList.add(pro);
 //	        	re = re.substring(re.indexOf("<")+1, re.indexOf(">"));
 	        	Relation rela = new Relation();
@@ -166,24 +135,18 @@ public class QueryGen {
 	        	
 	        	
 	        	Set<OWLClass> domains = reasoner.getObjectPropertyDomains(pro, true).getFlattened();
-	        	//System.out.println("-----------domains--------------");
 	        	for (OWLClass c : domains) {
 	        		if (!domainList.contains(c.toString())) {
 	        			domainList.add(c.toString());
-	        			//System.out.println(c);
 	        		}
 		        	Set<OWLClass> subdomains = reasoner.getSubClasses(c, true).getFlattened();
-		        	//System.out.println("-----------subdomains--------------");
 		        	for (OWLClass s : subdomains) {
 		        		if (!domainList.contains(s.toString())) {
 		        			domainList.add(s.toString());
-		        			//System.out.println(s);
 				        	Set<OWLClass> subsubdomains = reasoner.getSubClasses(s, true).getFlattened();
-				        	//System.out.println("-----------subsubdomains--------------");
 				        	for (OWLClass ss : subsubdomains) {
 				        		if (!domainList.contains(ss.toString())) {
 				        			domainList.add(ss.toString());
-				        			//System.out.println(ss);
 				        		}
 				        	}
 		        		}
@@ -194,26 +157,20 @@ public class QueryGen {
 	        	
 	        	NodeSet<OWLClass> rangesNodeSet = reasoner.getObjectPropertyRanges(pro, true);
 	        	Set<OWLClass> ranges = rangesNodeSet.getFlattened();
-	        	//System.out.println("-----------ranges--------------");
 	        	for (OWLClass r : ranges) {
 	        		if (!rangeList.contains(r.toString())) {
 	        			rangeList.add(r.toString());
-	        			//System.out.println(r);
 	        		}
 	        		NodeSet<OWLClass> subrangesNodeSet = reasoner.getSubClasses(r, false);
 		        	Set<OWLClass> subranges = reasoner.getSubClasses(r, false).getFlattened();
-		        	//System.out.println("-----------subranges--------------");
 		        	for (OWLClass s : subranges) {
 		        		if (!rangeList.contains(s.toString()) && !s.toString().equals("owl:Nothing")) {
 		        			rangeList.add(s.toString());
-		        			//System.out.println(s);
 		        		}
 			        	Set<OWLClass> subsubranges = reasoner.getSubClasses(s, false).getFlattened();
-			        	//System.out.println("-----------subsubranges--------------");
 			        	for (OWLClass ss : subranges) {
 			        		if (!rangeList.contains(ss.toString()) && !s.toString().equals("owl:Nothing")) {
 			        			rangeList.add(ss.toString());
-			        			//System.out.println(ss);
 			        		}
 			        	}
 		        	}
@@ -246,8 +203,6 @@ public class QueryGen {
 						String q = relation+ "  " + domain + "  " + range;
 						if (!queryList.contains(q)) {
 							queryList.add(q);
-							//System.out.println(q);
-//							count++;
 							writeQueryFile(relation, domain, range, count++);
 						}
 					}
@@ -260,8 +215,6 @@ public class QueryGen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//			System.out.println(count);
 	}
 
 }
-
