@@ -13,4 +13,3 @@ QueryAnswer.java in com.thesis.SPARQL package invokes Jena SPARQL engine to answ
 
 Backtracking.java in com.thesis.relevance package is used to extract relevant facts for query answers and asserted these relevant facts into a STIX_empty.owl. 
 
-Calculate.java in com.thesis.results package is used to calculate precision and recall. 
