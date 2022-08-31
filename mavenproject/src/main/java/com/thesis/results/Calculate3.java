@@ -75,19 +75,6 @@ public class Calculate3 {
 		System.out.println("precision = " + precision);
 		System.out.println("recall = " + recall);
 		
-		
-		List<Double> P = new ArrayList<>();
-		List<Double> R = new ArrayList<>();
-		for (int i=0; i<9; i++) {
-			Random rand = new Random();
-			double rangeMin = 0.9285714286;
-			double rangeMax = 0.9714285714;
-			double randomValue = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
-			System.out.println(randomValue);
-//			double r = rand.nextDouble(0.5);
-//			System.out.println(r);
-		}
-		
 	}
 
 }
