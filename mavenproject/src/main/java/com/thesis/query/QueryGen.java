@@ -90,7 +90,7 @@ public class QueryGen {
 			"PREFIX stol: <http://www.vistology.com/ont/2013/STO-L.owl#>\n";
 	    
 	    if (relation1==null && relation2==null) {
-	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "1.txt"));
+	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "3.txt"));
 		    writer1.write(fileContent);
 	    	String select3 = "INSERT {\n" +
 	    			"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
@@ -112,7 +112,7 @@ public class QueryGen {
 	    	writer1.close();
 	    }
 	    else if (relation1==null) {
-	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "1.txt"));
+	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "4.txt"));
 		    writer1.write(fileContent);
 	    	String select4 = "INSERT {\n" +
 	    			"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
@@ -135,7 +135,7 @@ public class QueryGen {
 	    	writer1.close();
 	    }
 	    else if (relation2==null) {
-	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "1.txt"));
+	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "5.txt"));
 		    writer1.write(fileContent);
 	    	String select5 = "INSERT {\n" +
 	    			"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
@@ -157,7 +157,7 @@ public class QueryGen {
 	    	writer1.close();
 	    }
 	    else {
-	    	BufferedWriter writer2 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "2.txt"));
+	    	BufferedWriter writer2 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "6.txt"));
 		    writer2.write(fileContent);
 	    	String select6 = "INSERT {\n" +
 	    			"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
