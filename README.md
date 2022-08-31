@@ -11,5 +11,5 @@ Then, QueryGen.java in com.thesis.query package is used to generate SPARQL queri
 
 QueryAnswer.java in com.thesis.SPARQL package invokes Jena SPARQL engine to answer SPARQL queries and write results into files. QueryAnswerToTriples.java interprate the results returned from the SPARQL engine into triples. 
 
-Backtracking.java in com.thesis.relevance package is used to extract relevant facts for query answers and asserted these relevant facts into a STIX_empty.owl. 
+Backtracking.java in com.thesis.relevance package is used to extract relevant facts for query answers and asserted these relevant facts into a STIX_empty.owl. The buildDerivation function takes a triple as one of the inputs. Firstly, it adds the triple to the relevant facts. Then, it checks if the triple is a base fact. If it is, stop backtracking. Otherwise, it checks what other triples can be used to infer this triple, and adds these triples to a triple set named nextStep. Then, it invokes buildDerivation function for each triple in the nextStep triple set. In the main function, it reads query answers for each query from the QueryAnswer folder, copies STIX_empty.owl to a location, invokes buildDerivation function for each triple, adds relevant facts to the empty ontology, and renames it afterwords.
 
