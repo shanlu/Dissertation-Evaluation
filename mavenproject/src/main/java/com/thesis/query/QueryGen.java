@@ -81,6 +81,104 @@ public class QueryGen {
 	    }
 	    
 	}
+	private static void writeQueryFile2(String relation1, String relation2, String domain, String range, int n) throws IOException {
+		String fileContent = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+			"PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+			"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+			"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+			"PREFIX stix: <http://stix.mitre.org/STIX#>\n" +
+			"PREFIX stol: <http://www.vistology.com/ont/2013/STO-L.owl#>\n";
+	    
+	    if (relation1==null && relation2==null) {
+	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "1.txt"));
+		    writer1.write(fileContent);
+	    	String select3 = "INSERT {\n" +
+	    			"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
+					"stix:s rdf:type stix:Sq.\n" + 
+					"stix:s stol:relevantRelation ?relation1.\n" + 
+					"stix:s stol:relevantRelation ?relation2.\n" + 
+					"stix:s stol:relevantIndiviudal ?object1.\n" + 
+					"stix:s stol:relevantIndiviudal ?object2.}\n" + 
+					"WHERE {\n" +
+					"?relation1 rdf:type stol:Relation.\n" + 
+					"?relation1 stol:anchor1 ?object1.\n" + 
+					"?relation1 stol:anchor2 ?object2.\n" +
+					"?relation2 rdf:type stol:Relation.\n" + 
+					"?relation2 stol:anchor1 ?object1.\n" + 
+					"?relation2 stol:anchor2 ?object2.\n" +
+					"?object1 rdf:type " + domain + ".\n" + 
+					"?object2 rdf:type " + range + ".}\n";
+	    	writer1.write(select3);
+	    	writer1.close();
+	    }
+	    else if (relation1==null) {
+	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "1.txt"));
+		    writer1.write(fileContent);
+	    	String select4 = "INSERT {\n" +
+	    			"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
+					"stix:s rdf:type stix:Sq.\n" + 
+					"stix:s stol:relevantRelation ?relation1.\n" + 
+					"stix:s stol:relevantRelation "+ relation2 +".\n" + 
+					"stix:s stol:relevantIndiviudal ?object1.\n" + 
+					"stix:s stol:relevantIndiviudal ?object2.}\n" + 
+					"WHERE {\n" +
+					"?relation1 rdf:type stol:Relation.\n" + 
+					"?relation1 stol:anchor1 ?object1.\n" + 
+					"?relation1 stol:anchor2 ?object2.\n" +
+					relation2 + " rdf:type stol:Relation.\n" + 
+					relation2 + " stol:anchor1 ?object1.\n" + 
+					relation2 + " stol:anchor2 ?object2.\n" +
+					"?object1 rdf:type " + domain + ".\n" + 
+					"?object2 rdf:type " + range + ".}\n";
+			    			
+	    	writer1.write(select4);
+	    	writer1.close();
+	    }
+	    else if (relation2==null) {
+	    	BufferedWriter writer1 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "1.txt"));
+		    writer1.write(fileContent);
+	    	String select5 = "INSERT {\n" +
+	    			"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
+					"stix:s rdf:type stix:Sq.\n" + 
+					"stix:s stol:relevantRelation "+ relation1 +".\n" + 
+					"stix:s stol:relevantRelation ?relation2.\n" + 
+					"stix:s stol:relevantIndiviudal ?object1.\n" + 
+					"stix:s stol:relevantIndiviudal ?object2.}\n" + 
+					"WHERE {\n" +
+					relation1 + " rdf:type stol:Relation.\n" + 
+					relation1 + " stol:anchor1 ?object1.\n" + 
+					relation1 + " stol:anchor2 ?object2.\n" +
+					"?relation2 rdf:type stol:Relation.\n" + 
+					"?relation2 stol:anchor1 ?object1.\n" + 
+					"?relation2 stol:anchor2 ?object2.\n" +
+					"?object1 rdf:type " + domain + ".\n" + 
+					"?object2 rdf:type " + range + ".}\n";
+	    	writer1.write(select5);
+	    	writer1.close();
+	    }
+	    else {
+	    	BufferedWriter writer2 = new BufferedWriter(new FileWriter("/Users/shanlu/Documents/Data/NewSTIX/NewQuery/"+ n + "2.txt"));
+		    writer2.write(fileContent);
+	    	String select6 = "INSERT {\n" +
+	    			"stix:Sq rdfs:subClassOf stol:Infon.\n" + 
+					"stix:s rdf:type stix:Sq.\n" + 
+					"stix:s stol:relevantRelation "+ relation1 +".\n" + 
+					"stix:s stol:relevantRelation "+ relation2 +".\n" +
+					"stix:s stol:relevantIndiviudal ?object1.\n" + 
+					"stix:s stol:relevantIndiviudal ?object2.}\n" + 
+					"WHERE {\n" +
+					relation1 + " rdf:type stol:Relation.\n" + 
+					relation1 + " stol:anchor1 ?object1.\n" + 
+					relation1 + " stol:anchor2 ?object2.\n" +
+					relation2 + " rdf:type stol:Relation.\n" + 
+					relation2 + " stol:anchor1 ?object1.\n" + 
+					relation2 + " stol:anchor2 ?object2.\n" + 
+					"?object2 rdf:type " + range + ".}\n";
+	    	writer2.write(select6);
+	    	writer2.close();
+	    }
+	    
+	}
 	
 	public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException {
 		
@@ -204,6 +302,26 @@ public class QueryGen {
 						if (!queryList.contains(q)) {
 							queryList.add(q);
 							writeQueryFile(relation, domain, range, count++);
+						}
+						}
+					}
+					}
+				}
+			}
+			for (Relation rela1 : relationList) {
+				for (Relation rela2 : relationList) {
+				String relation = rela1.name;
+				List<String> domains = rela1.domains;
+				List<String> ranges = rela1.ranges;
+				for (String domain : domains) {
+					if (!domain.equals("owl:Nothing") && !domain.contains("http://capec.mitre.org/capec_v1#Indicator") && !domain.contains("http://cybox.mitre.org/cybox_v1#Observable")) {
+					for (String range : ranges) {
+						if (!range.equals("owl:Nothing") && !range.contains("http://capec.mitre.org/capec_v1#Indicator") && !range.contains("http://capec.mitre.org/capec_v1#Indicator")) {
+						String q = relation+ "  " + domain + "  " + range;
+						if (!queryList.contains(q)) {
+							queryList.add(q);
+							writeQueryFile2(rela1.name, rela2.name, domain, range, count++);
+						}
 						}
 					}
 					}
